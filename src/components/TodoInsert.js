@@ -1,35 +1,32 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import './TodoInsert.scss'
 import { MdAdd } from 'react-icons/md'
 
-const TodoInsert = () => {
+const TodoInsert = ({ onInsert }) => {
   const [input, setInput] = useState('')
-  const [todoList, setTodoList] = useState([])
-  const inputChange = e => {
+
+  const inputChange = useCallback((e) => {
     setInput(e.target.value)
-  }
-  const addTodo = (e) => {
-    console.log(1)
-    setTodoList([
-      ...todoList,
-      input
-    ])
-    // setInput('')
-  }
+    console.log(e.target.value)
+  }, [])
+
+  const addTodo = useCallback(() => {
+    onInsert(input)
+    setInput('')
+  }, [onInsert, input])
 
   return (
-    <form className="TodoInsert">
+    <div className="TodoInsert">
       <input
         placeholder="Add to-do"
         type="text"
         value={input}
-        onChange={(e) => inputChange(e)}
+        onChange={inputChange}
       />
-      <button
-        onClick={addTodo}>
+      <button onClick={addTodo}>
         <MdAdd />
       </button>
-    </form>
+    </div>
   )
 }
 
