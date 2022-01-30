@@ -41,11 +41,26 @@ function App() {
     }, [todos]
   )
 
+  const onDelete = useCallback((id) => {
+    const filteredTodos = todos.filter((todo) => {
+      return todo.id !== id
+    })
+    setTodos(filteredTodos)
+  }, [todos])
+
+  const onCheck = useCallback((id) => {
+    const changedTodos = todos.map(todo => {
+      return todo.id === id ? {...todo, checked : !todo.checked} : todo
+    })
+
+    setTodos(changedTodos)
+  }, [todos])
+
   return (
     <div className="App">
       <TodoTemplate>
         <TodoInsert onInsert={onInsert}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} onDelete={onDelete} onCheck={onCheck}/>
       </TodoTemplate>
     </div>
   );

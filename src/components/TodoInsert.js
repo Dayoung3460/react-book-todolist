@@ -7,26 +7,26 @@ const TodoInsert = ({ onInsert }) => {
 
   const inputChange = useCallback((e) => {
     setInput(e.target.value)
-    console.log(e.target.value)
   }, [])
 
-  const addTodo = useCallback(() => {
+  const addTodo = useCallback((e) => {
+    e.preventDefault()
     onInsert(input)
     setInput('')
   }, [onInsert, input])
 
   return (
-    <div className="TodoInsert">
+    <form className="TodoInsert" onSubmit={addTodo}>
       <input
         placeholder="Add to-do"
         type="text"
         value={input}
         onChange={inputChange}
       />
-      <button onClick={addTodo}>
+      <button type="submit">
         <MdAdd />
       </button>
-    </div>
+    </form>
   )
 }
 
