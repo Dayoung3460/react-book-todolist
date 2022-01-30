@@ -21,4 +21,4 @@ const TodoListItem = ({ todo, onDelete, onCheck }) => {
   )
 }
 
-export default TodoListItem
+export default React.memo(TodoListItem)
